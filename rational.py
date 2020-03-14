@@ -37,15 +37,13 @@ class Rational:
     def __mul__(self,other):
         r(self)
         r(other)
-        s = Rational(1,1)
-        s.num = Rational(self.num * other.denom +other.num * self.denom ,self.denom * other.denom)
+        s = Rational(self.num * other.num ,self.denom * other.denom)
         s.simplify()
         return s
     def __truediv__(self,other):
         r(self)
         r(other)
-        s = Rational(1,1)
-        s.num = Rational(self.num * other.num +other.denom * self.denom ,self.denom * other.denom)
+        s = Rational(self.num * other.denom ,self.denom * other.num)
         s.simplify()
         return s
     def __pow__(self,other):
@@ -88,6 +86,14 @@ def r(other):
         other = Rational(other,1)
         return other
 
-r1 = Rational(1, 27)
-
-r2 = Rational(-2, 27)
+r1 = Rational(3, 2)
+r2 = Rational(1, 4)
+print("r1", r1)
+print("r2", r2)
+print()
+ 
+print("r1+r2=", r1 + r2)
+print("r1-r2=", r1 - r2)
+print("r1*r2=", r1 * r2)
+print("r1/r2=", r1 / r2)
+print("r1**2=", r1 ** 2)
