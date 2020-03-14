@@ -16,11 +16,13 @@ class Rational:
             num = abs(num)
             denom = abs(denom)
         elif self.denom < 0:
-            num = -num
+            num = -1 * num
             denom = abs(denom)
         return "{}/{}".format(num, denom)
     
     def __add__(self, other):
+        r(self)
+        r(other)
         s = Rational(1, 1)
         denom1 = abs(self.denom)
         denom2 = abs(other.denom)
@@ -31,15 +33,38 @@ class Rational:
         s.num = self.num * q2 + other.num * q1
         s.simplify()
         return s
+            
     def __mul__(self,other):
-        pass
-    def __div__(self,other):
-        pass
+        r(self)
+        r(other)
+        s = Rational(1,1)
+        s.num = Rational(self.num * other.denom +other.num * self.denom ,self.denom * other.denom)
+        s.simplify()
+        return s
+    def __truediv__(self,other):
+        r(self)
+        r(other)
+        s = Rational(1,1)
+        s.num = Rational(self.num * other.num +other.denom * self.denom ,self.denom * other.denom)
+        s.simplify()
+        return s
     def __pow__(self,other):
-        pass
-
-    def __sub__(self, n):
-        pass
+        s = Rational(self.num ** other,self.denom**other)
+        s.simplify()
+        return s
+    def __sub__(self, other):
+        r(self)
+        r(other)
+        s = Rational(1, 1)
+        denom1 = abs(self.denom)
+        denom2 = abs(other.denom)
+        g = gcd(denom1, denom2)
+        q1 = int(self.denom / g)
+        q2 = int(other.denom / g)
+        s.denom = g * q1 * q2
+        s.num = self.num * q2 - other.num * q1
+        s.simplify()
+        return s
     def simplify(self):
         num = abs(self.num)
         denom = abs(self.denom)
@@ -55,15 +80,14 @@ def gcd(a, b):#유클리드 호제법
         return a
     else:
         return gcd(b, a%b)
-
+def r(other):
+    try:
+        if other.num == other.num:
+            pass
+    except:
+        other = Rational(other,1)
+        return other
 
 r1 = Rational(1, 27)
 
-r2 = Rational(2, 27)
-
-print(r1)
-
-print(r2)
-
-print(r1 + r2)
-
+r2 = Rational(-2, 27)
